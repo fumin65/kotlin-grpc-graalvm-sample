@@ -9,13 +9,14 @@ RUN PB_REL="https://github.com/protocolbuffers/protobuf/releases" \
 
 FROM ghcr.io/graalvm/graalvm-ce:21.0.0
 
-COPY ./build/libs/native-image.jar .
+COPY . .
 COPY --from=0 /protoc ./protoc
 
 RUN export PATH="$PATH:/protoc/bin" \
   && gu install native-image \
-  && native-image --verbose -jar native-image.jar
+  && ./gradlew native-image:build \
+  && native-image --verbose -jar native-image/build/libs/grpc-app.jar
 
 EXPOSE 9000
 
-CMD ["./native-image"]
+CMD ["./grpc-app"]

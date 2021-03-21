@@ -19,7 +19,7 @@ application {
 }
 
 jar {
-    archiveFileName = "native-image.jar"
+    archiveFileName = "grpc-app.jar"
     manifest {
         attributes "Main-Class": "dev.fumin.sample.kotlin.grpc.MainKt"
     }
@@ -63,10 +63,4 @@ dependencies {
     implementation Dep.Server.netty
 
     compileOnly Dep.Grpc.CompileOnly.tomcatAnn
-}
-
-task buildNativeImage(type: Exec) {
-    dependsOn "build"
-    executable "docker"
-    args "build", "-t", "kotlin-grpc-native-image", "."
 }

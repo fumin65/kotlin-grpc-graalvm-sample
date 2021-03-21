@@ -12,6 +12,8 @@ kotlin+gRPC+GraalVMの最小構成のサンプル。
 
 ## ネイティブイメージのビルド
 
+プロジェクトルートから以下のコマンドを実行。
+
 ```
-./gradlew native-image:buildNativeImage
+docker build -t kotlin-grpc-native-image -f native-image/Dockerfile .
 ```
