@@ -1,0 +1,72 @@
+import artifacts.Artifact
+import dependencies.Dep
+
+plugins {
+    id "java"
+    id "kotlin"
+    id "com.google.protobuf"
+    id "application"
+    id "idea"
+}
+
+java {
+    sourceCompatibility = Dep.Java.version
+    targetCompatibility = Dep.Java.version
+}
+
+application {
+    mainClassName = "dev.fumin.sample.kotlin.grpc.MainKt"
+}
+
+jar {
+    archiveFileName = "native-image.jar"
+    manifest {
+        attributes "Main-Class": "dev.fumin.sample.kotlin.grpc.MainKt"
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "src/main/proto"
+        }
+    }
+}
+
+protobuf {
+    plugins {
+        grpc {
+            artifact = Artifact.grpc
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+
+dependencies {
+    implementation Dep.Kotlin.stdLib
+    implementation Dep.Kotlin.common
+
+    implementation Dep.Grpc.netty
+    implementation Dep.Grpc.protobuf
+    implementation Dep.Grpc.stub
+
+    implementation Dep.Server.netty
+
+    compileOnly Dep.Grpc.CompileOnly.tomcatAnn
+}
+
+task buildNativeImage(type: Exec) {
+    dependsOn "build"
+    executable "docker"
+    args "build", "-t", "kotlin-grpc-native-image", "."
+}

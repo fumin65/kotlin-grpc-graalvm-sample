@@ -1,0 +1,3 @@
+rootProject.name = "kotlin-grpc-graalvm-sample"
+
+include ":native-image"

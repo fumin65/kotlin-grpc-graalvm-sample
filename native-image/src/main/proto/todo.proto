@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package dev.fumin.sample.kotlin.grpc;
+
+option java_package = "dev.fumin.sample.kotlin.grpc";
+
+message CreateTodoRequest {
+  string title = 1;
+}
+
+message Todo {
+  string id = 1;
+  string title = 2;
+}
+
+service TodoService {
+  rpc Create(CreateTodoRequest) returns (Todo);
+}

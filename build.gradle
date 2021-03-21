@@ -1,0 +1,24 @@
+import dependencies.Dep
+
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath Dep.GradlePlugin.kotlin
+        classpath Dep.GradlePlugin.grpc
+    }
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
