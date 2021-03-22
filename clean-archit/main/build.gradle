@@ -1,0 +1,37 @@
+import dependencies.Dep
+
+plugins {
+    id "java"
+    id "kotlin"
+    id "application"
+}
+
+java {
+    sourceCompatibility = Dep.Java.version
+    targetCompatibility = Dep.Java.version
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "11"
+}
+
+application {
+    mainClassName = "dev.fumin.sample.kotlin.grpc.cleanarchit.MainKt"
+}
+
+jar {
+    archiveFileName = "clean-archit-app.jar"
+    manifest {
+        attributes "Main-Class": "dev.fumin.sample.kotlin.grpc.cleanarchit.MainKt"
+    }
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+dependencies {
+    implementation project(":clean-archit:layer-infrastructure")
+    implementation Dep.DI.kodein
+}

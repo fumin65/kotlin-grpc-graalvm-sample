@@ -1,0 +1,47 @@
+import artifacts.Artifact
+import dependencies.Dep
+
+plugins {
+    id "java-library"
+    id "kotlin"
+    id "com.google.protobuf"
+    id "idea"
+}
+
+java {
+    sourceCompatibility = Dep.Java.version
+    targetCompatibility = Dep.Java.version
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "src/main/proto"
+        }
+    }
+}
+
+protobuf {
+    plugins {
+        grpc {
+            artifact = Artifact.grpc
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins {
+            grpc {}
+        }
+    }
+}
+
+dependencies {
+    api project(":clean-archit:layer-application")
+
+    api Dep.Grpc.netty
+    api Dep.Grpc.protobuf
+    api Dep.Grpc.stub
+
+    api Dep.Server.netty
+
+    compileOnly Dep.Grpc.CompileOnly.tomcatAnn
+}

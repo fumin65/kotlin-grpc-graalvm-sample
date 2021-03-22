@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package dev.fumin.sample.kotlin.grpc.cleanarchit.presentation.grpc;
+
+option java_package = "dev.fumin.sample.kotlin.grpc.cleanarchit.presentation.grpc";
+
+message RegisterTodoRequest {
+  string title = 1;
+}
+
+message Todo {
+  string id = 1;
+  string title = 2;
+}
+
+service TodoService {
+  rpc Create(RegisterTodoRequest) returns (Todo);
+}

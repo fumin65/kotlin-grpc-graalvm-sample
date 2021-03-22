@@ -1,3 +1,8 @@
 rootProject.name = "kotlin-grpc-graalvm-sample"
 
 include ":native-image"
+include ":clean-archit:layer-domain"
+include ":clean-archit:layer-application"
+include ":clean-archit:layer-presentation"
+include ":clean-archit:layer-infrastructure"
+include ":clean-archit:main"

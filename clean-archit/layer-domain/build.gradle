@@ -1,0 +1,15 @@
+import dependencies.Dep
+
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = Dep.Java.version
+    targetCompatibility = Dep.Java.version
+}
+
+dependencies {
+    api Dep.Kotlin.stdLib
+}
