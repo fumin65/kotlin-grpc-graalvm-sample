@@ -51,10 +51,4 @@ object Dep {
         const val netty = "io.netty:netty-handler:4.1.60.Final"
     }
 
-    object Graal {
-        object CompileOnly {
-            const val svm = "com.oracle.substratevm:svm:19.2.1"
-        }
-    }
-
 }
