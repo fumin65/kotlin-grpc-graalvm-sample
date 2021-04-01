@@ -62,5 +62,6 @@ dependencies {
 
     implementation Dep.Server.netty
 
+    compileOnly Dep.Graal.CompileOnly.svm
     compileOnly Dep.Grpc.CompileOnly.tomcatAnn
 }
